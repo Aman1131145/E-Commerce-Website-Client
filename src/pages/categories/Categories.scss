@@ -14,7 +14,7 @@
         .sort-by {
             flex: 1;
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
 
             .sort-by-container {
                 display: flex;
@@ -67,7 +67,7 @@
             gap: 4px;
         }
     }
-}
+} 
 
 @media screen and (max-width: 480px) {
     .Categories {
