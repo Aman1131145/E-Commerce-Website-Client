@@ -3,39 +3,34 @@ import { Link } from "react-router-dom";
 import "./Navbar.scss";
 import { BsCart2 } from "react-icons/bs";
 import Cart from "../cart/Cart";
+import { useSelector } from "react-redux";
 
 function Navbar() {
     const [openCart, setOpenCart] = useState(false);
+    const categories = useSelector((state) => state.categoryReducer.categories);
+    const cart = useSelector((state) => state.cartReducer.cart);
+    let totalItem = 0;
+    cart.forEach((element) => (totalItem += element.quantity));
+
     return (
         <>
             <nav className="Navbar">
                 <div className="container nav-container">
                     <div className="nav-left">
                         <ul className="link-group">
-                            <li className="hover-link">
-                                <Link
-                                    className="link"
-                                    to="/products?category=comic"
+                            {categories?.map((category) => (
+                                <li
+                                    className="hover-link"
+                                    key={category.attributes.key}
                                 >
-                                    Comics
-                                </Link>
-                            </li>
-                            <li className="hover-link">
-                                <Link
-                                    className="link"
-                                    to="/products?category=shows"
-                                >
-                                    TV Shows
-                                </Link>
-                            </li>
-                            <li className="hover-link">
-                                <Link
-                                    className="link"
-                                    to="/products?category=sports"
-                                >
-                                    Sports
-                                </Link>
-                            </li>
+                                    <Link
+                                        className="link"
+                                        to={`/category/${category.attributes.key}`}
+                                    >
+                                        {category.attributes.title}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                     <div className="nav-center">
@@ -49,7 +44,11 @@ function Navbar() {
                             onClick={() => setOpenCart(!openCart)}
                         >
                             <BsCart2 className="icon" />
-                            <span className="cart-count center">99+</span>
+                            {totalItem > 0 && (
+                                <span className="cart-count center">
+                                    {totalItem}
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -48,6 +48,24 @@
             }
         }
 
+        .empty-cart-info{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px;
+            align-items: center;
+            justify-content: center;
+
+            icn{
+                font-size: 3rem;
+                color: var(--secondary-text-color);
+            }
+
+            h4{
+                color: var(--secondary-text-color)
+            }
+        }
+
         .checkout-info {
             margin-top: 40px;
             padding: 8px;
@@ -74,7 +92,6 @@
         transform: translateX(0);
     }
 }
-
 @media screen and (max-width: 480px) {
     .Cart .cart-content {
         width: 100%;

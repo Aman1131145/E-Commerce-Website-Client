@@ -1,9 +1,13 @@
 .Product {
     cursor: pointer;
     min-width: 280px;
+    flex: 1;
+    flex-grow: 0;
+    border: 1px solid rgba($color: #000000, $alpha: 0.1);
+    align-self: stretch;
 
     .product-container {
-        border: 1px solid rgba($color: #000000, $alpha: 0.1);
+
         .product-img {
             height: 300px;
             width: 100%;
@@ -23,11 +27,9 @@
                 }
             }
         }
-
         .product-info {
             text-align: center;
             padding-inline: 8px;
-
             .price {
                 color: var(--primary-text-color);
                 font-weight: 700;
