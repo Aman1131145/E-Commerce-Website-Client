@@ -7,6 +7,7 @@ import ProductDetail from "./pages/productDetail/ProductDetail";
 import { useDispatch } from "react-redux";
 import { fetchCategories } from "./redux/CategorySlice";
 import { useEffect } from "react";
+import Payments from "./components/payments/Payments";
 
 function App() {
     const dispatch = useDispatch();
@@ -28,6 +29,10 @@ function App() {
                     <Route
                         path="/products/:productId"
                         element={<ProductDetail />}
+                    />
+                    <Route
+                        path="/payments/:status"
+                        element={<Payments />}
                     />
                 </Routes>
             </main>

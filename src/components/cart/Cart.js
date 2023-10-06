@@ -2,16 +2,35 @@ import React from "react";
 import "./Cart.scss";
 import { AiOutlineClose } from "react-icons/ai";
 import CartItem from "../cartItem/CartItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BsCartX } from "react-icons/bs";
+import { axiosClient } from "../../utils/axiosClient";
+import { loadStripe } from "@stripe/stripe-js";
+import { resetCart } from "../../redux/cartSlice";
+
 
 function Cart({ onClose }) {
     const cart = useSelector((state) => state.cartReducer.cart);
+    const dispatch = useDispatch();
     let totalAmount = 0;
     cart.forEach(
         (element) => (totalAmount += element.quantity * element.price)
     );
     const isCartEmpty = cart.length === 0;
+
+    async function handleCheckout() {
+        try {
+            const response = await axiosClient.post("/orders", {
+                products: cart,
+            });
+            const stripe = await loadStripe(`${ process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY }`);
+            await stripe.redirectToCheckout({
+                sessionId: response.data.stripeId,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className="Cart">
@@ -26,7 +45,7 @@ function Cart({ onClose }) {
                 <div className="cart-items">
                     {cart.map((item) => (
                         <CartItem cart={item} key={item.key} />
-                    ))}
+                        ))}
                 </div>
                 {isCartEmpty && (
                     <div className="empty-cart-info">
@@ -42,7 +61,12 @@ function Cart({ onClose }) {
                             <h3 className="total-message">Total:</h3>
                             <h4 className="total-value">₹ {totalAmount}</h4>
                         </div>
-                        <div className="checkout btn-primary">Checkout now</div>
+                        <div
+                            className="checkout btn-primary"
+                            onClick={handleCheckout}
+                        >
+                            Checkout now
+                        </div>
                     </div>
                 )}
             </div>
