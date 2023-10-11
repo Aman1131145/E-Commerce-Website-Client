@@ -1,6 +1,6 @@
 import React from "react";
 import "./Payments.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
@@ -28,11 +28,13 @@ function Payments() {
         dispatch(resetCart());
     }
 
+    const navigate = useNavigate();
+
     return (
         <div className="Payments">
             <div className="icon">{infoData[status].icon}</div>
             <h2 className="message">{infoData[status].message}</h2>
-            <button className="btn-primary">{infoData[status].cta}</button>
+            <button className="btn-primary" onClick={() => navigate('/')}>{infoData[status].cta}</button>
         </div>
     );
 }

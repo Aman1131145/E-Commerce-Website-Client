@@ -6,12 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { BsCartX } from "react-icons/bs";
 import { axiosClient } from "../../utils/axiosClient";
 import { loadStripe } from "@stripe/stripe-js";
-import { resetCart } from "../../redux/cartSlice";
 
 
 function Cart({ onClose }) {
     const cart = useSelector((state) => state.cartReducer.cart);
-    const dispatch = useDispatch();
     let totalAmount = 0;
     cart.forEach(
         (element) => (totalAmount += element.quantity * element.price)

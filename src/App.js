@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { fetchCategories } from "./redux/CategorySlice";
 import { useEffect } from "react";
 import Payments from "./components/payments/Payments";
+import FooterItem from "./components/footerItem/FooterItem";
 
 function App() {
     const dispatch = useDispatch();
@@ -33,6 +34,10 @@ function App() {
                     <Route
                         path="/payments/:status"
                         element={<Payments />}
+                    />
+                    <Route
+                        path="/footer/:info"
+                        element= {<FooterItem/>}
                     />
                 </Routes>
             </main>
